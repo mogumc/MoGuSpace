@@ -123,6 +123,7 @@ friends:
 title: 项目名称
 description: 项目描述
 category: Web
+projectUrl: https://项目地址.com
 imageUrl: /cover.png
 date: 2026-01-01
 techStack:
@@ -141,6 +142,7 @@ techStack:
 | `title` | 否 | `"Untitled"` | 项目标题 |
 | `description` | 否 | `""` | 项目描述 |
 | `category` | 否 | `"Uncategorized"` | 分类，用于分组和侧边栏导航 |
+| `projectUrl` | 否 | `""` | 项目地址 |
 | `imageUrl` | 否 | config 中 `siteImage` | 封面图路径 |
 | `date` | 否 | 文件修改时间 | 日期 |
 | `techStack` | 否 | `[]` | 技术栈列表，icon 引用 `icons/` 下的 SVG 文件名 |
