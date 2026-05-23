@@ -125,8 +125,8 @@ export default function ProjectCarousel({ projects, currentSlug }: ProjectCarous
   };
 
   return (
-    <Box sx={{ mt: 8, borderTop: '1px solid', borderColor: 'divider', pt: 4, pb: 8 }}>
-      <Typography variant="h5" sx={{ fontWeight: 'bold', mb: 4 }}>
+      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4, mt: 8, borderTop: '1px solid', borderColor: 'divider', pt: 4, pb: 8 }}>
+      <Typography variant="h5" sx={{ fontWeight: 'bold' }}>
         相关项目
       </Typography>
       
@@ -139,7 +139,7 @@ export default function ProjectCarousel({ projects, currentSlug }: ProjectCarous
           ref={containerRef}
           sx={{ 
             position: 'relative',
-            height: { xs: '300px', sm: '380px' },
+            height: { xs: '280px', sm: '350px' },
             overflow: 'hidden',
             cursor: 'grab',
             userSelect: 'none',
@@ -178,7 +178,7 @@ export default function ProjectCarousel({ projects, currentSlug }: ProjectCarous
                     color: 'inherit',
                     zIndex: 10 - absOffset,
                     opacity: isVisible ? 1 - absOffset * 0.3 : 0,
-                    transform: `translateX(calc(-50% + ${offset * 40}%)) scale(${isVisible ? 1 - absOffset * 0.15 : 0.7})`,
+                    transform: `translateX(calc(-50% + ${offset * 40}%)) scale(${isVisible ? 0.85 - absOffset * 0.15 : 0.65})`,
                     transition: 'all 0.4s ease',
                     boxShadow: absOffset === 0 ? 4 : 0,
                     pointerEvents: absOffset === 0 ? 'auto' : 'none',
@@ -230,7 +230,7 @@ export default function ProjectCarousel({ projects, currentSlug }: ProjectCarous
         </IconButton>
       </Box>
 
-      <Box sx={{ display: 'flex', justifyContent: 'center', gap: 1, mt: 5 }}>
+      <Box sx={{ display: 'flex', justifyContent: 'center', gap: 1 }}>
         {similarProjects.map((_, idx) => (
           <Box
             key={idx}
