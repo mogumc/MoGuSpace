@@ -44,14 +44,15 @@ export default function RootLayout({
     <html lang="zh">
       <body>
         <ThemeProviderWrapper>
-          <TopLoader />
-          <BackgroundLayer src={siteConfig.background} />
-          <Navbar config={siteConfig} />
-          <HeroContainer>
-            <PageTransitionProvider>
-              {children}
-            </PageTransitionProvider>
-          </HeroContainer>
+          <TopLoader>
+            <BackgroundLayer src={siteConfig.background} />
+            <Navbar config={siteConfig} />
+            <HeroContainer>
+              <PageTransitionProvider>
+                {children}
+              </PageTransitionProvider>
+            </HeroContainer>
+          </TopLoader>
         </ThemeProviderWrapper>
       </body>
     </html>

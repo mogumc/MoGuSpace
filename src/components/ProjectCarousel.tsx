@@ -1,9 +1,10 @@
 'use client';
-import { Box, Typography, IconButton } from '@mui/material';
+import { Box, Typography, IconButton, useTheme } from '@mui/material';
 import Link from 'next/link';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import { useState, useRef, useEffect } from 'react';
+import { useLoadingTrigger } from './TopLoader';
 
 interface Project {
   slug: string;
@@ -71,6 +72,9 @@ export default function ProjectCarousel({ projects, currentSlug }: ProjectCarous
   const dragStartX = useRef(0);
   const isDragging = useRef(false);
   const containerRef = useRef<HTMLDivElement>(null);
+  const triggerLoading = useLoadingTrigger();
+  const theme = useTheme();
+  const isDark = theme.palette.mode === 'dark';
 
   const getItemOffset = (itemIdx: number): number => {
     const raw = itemIdx - activeIndex;
@@ -164,6 +168,8 @@ export default function ProjectCarousel({ projects, currentSlug }: ProjectCarous
                   onClick={(e) => {
                     if (isDragging.current || Math.abs(dragStartX.current - (e as any).clientX) > 10) {
                       e.preventDefault();
+                    } else {
+                      triggerLoading();
                     }
                   }}
                   sx={{
@@ -176,6 +182,7 @@ export default function ProjectCarousel({ projects, currentSlug }: ProjectCarous
                     overflow: 'hidden',
                     textDecoration: 'none',
                     color: 'inherit',
+                    bgcolor: 'background.paper',
                     zIndex: 10 - absOffset,
                     opacity: isVisible ? 1 - absOffset * 0.3 : 0,
                     transform: `translateX(calc(-50% + ${offset * 40}%)) scale(${isVisible ? 0.85 - absOffset * 0.15 : 0.65})`,
@@ -203,18 +210,20 @@ export default function ProjectCarousel({ projects, currentSlug }: ProjectCarous
                       position: 'absolute',
                       bottom: 0, left: 0, right: 0,
                       height: '50%',
-                      background: 'linear-gradient(to top, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.7) 40%, transparent 100%)',
+                      background: isDark
+                        ? 'linear-gradient(to top, rgba(18,18,18,0.95) 0%, rgba(18,18,18,0.7) 40%, transparent 100%)'
+                        : 'linear-gradient(to top, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.7) 40%, transparent 100%)',
                     }} />
-                    
+
                     <Box sx={{
                       position: 'absolute',
                       bottom: 0, left: 0, right: 0,
                       p: 3, zIndex: 1,
                     }}>
-                      <Typography variant="h6" sx={{ fontWeight: 'bold', color: '#000', fontSize: { xs: '1rem', sm: '1.25rem' } }}>
+                      <Typography variant="h6" sx={{ fontWeight: 'bold', color: 'text.primary', fontSize: { xs: '1rem', sm: '1.25rem' } }}>
                         {project.title}
                       </Typography>
-                      <Typography variant="body2" sx={{ color: '#333', mt: 0.5 }}>
+                      <Typography variant="body2" sx={{ color: 'text.secondary', mt: 0.5 }}>
                         {project.category}
                       </Typography>
                     </Box>

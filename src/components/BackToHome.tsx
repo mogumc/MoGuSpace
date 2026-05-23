@@ -1,20 +1,23 @@
 'use client';
 import NextLink from 'next/link';
 import { Typography } from '@mui/material';
+import { useLoadingTrigger } from './TopLoader';
 
 export default function BackToHome() {
+  const triggerLoading = useLoadingTrigger();
   return (
-    <NextLink 
-      href="/" 
+    <NextLink
+      href="/"
       passHref
       legacyBehavior
     >
-      <Typography 
-        variant="body2" 
+      <Typography
+        variant="body2"
         component="a"
-        sx={{ 
-          display: 'inline-flex', 
-          alignItems: 'center', 
+        onClick={triggerLoading}
+        sx={{
+          display: 'inline-flex',
+          alignItems: 'center',
           gap: 0.5,
           color: 'text.secondary',
           textDecoration: 'none',

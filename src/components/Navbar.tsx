@@ -5,6 +5,7 @@ import { Box, Typography, IconButton, Drawer, List, ListItem, ListItemButton, Li
 import { alpha } from '@mui/material/styles';
 import NextLink from 'next/link';
 import { usePathname } from 'next/navigation';
+import { useLoadingTrigger } from './TopLoader';
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
 
@@ -37,6 +38,7 @@ export default function Navbar({ config }: { config: any }) {
   const lastScrollY = useRef(0);
   const theme = useTheme();
   const navbarBg = alpha(theme.palette.background.paper, 0.7);
+  const triggerLoading = useLoadingTrigger();
 
   useMotionValueEvent(scrollY, "change", (latest) => {
     if (latest > lastScrollY.current && latest > 150) {
@@ -84,7 +86,7 @@ export default function Navbar({ config }: { config: any }) {
 
           <Box sx={{ display: { xs: 'none', md: 'flex' }, gap: 3 }}>
             {navLinks.map((link: { label: string; url: string }) => (
-              <MuiLink key={link.label} href={link.url} component={NextLink} color="inherit" underline="hover">{link.label}</MuiLink>
+              <MuiLink key={link.label} href={link.url} component={NextLink} color="inherit" underline="hover" onClick={triggerLoading}>{link.label}</MuiLink>
             ))}
           </Box>
 
@@ -107,7 +109,7 @@ export default function Navbar({ config }: { config: any }) {
         <List sx={{ mt: 2 }}>
           {navLinks.map((link: { label: string; url: string }) => (
             <ListItem key={link.label} disablePadding>
-              <ListItemButton component="a" href={link.url} onClick={() => setMobileOpen(false)} sx={{ justifyContent: 'center' }}>
+              <ListItemButton component="a" href={link.url} onClick={() => { triggerLoading(); setMobileOpen(false); }} sx={{ justifyContent: 'center' }}>
                 <ListItemText primary={link.label} sx={{ textAlign: 'center' }} />
               </ListItemButton>
             </ListItem>

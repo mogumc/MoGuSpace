@@ -3,6 +3,7 @@ import { Box, Typography, Card, CardContent, CardMedia, CardActionArea } from '@
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useCallback, useRef } from 'react';
+import { useLoadingTrigger } from './TopLoader';
 
 interface ProjectCardProps {
   slug: string;
@@ -14,6 +15,7 @@ interface ProjectCardProps {
 export default function ProjectCard({ slug, title, description, imageUrl }: ProjectCardProps) {
   const router = useRouter();
   const prefetched = useRef(false);
+  const triggerLoading = useLoadingTrigger();
 
   const handleMouseEnter = useCallback(() => {
     if (prefetched.current) return;
@@ -41,7 +43,7 @@ export default function ProjectCard({ slug, title, description, imageUrl }: Proj
       }}
     >
       <Link href={`/projects/${slug}/`} passHref legacyBehavior>
-        <CardActionArea sx={{ height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'stretch' }}>
+        <CardActionArea onClick={triggerLoading} sx={{ height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'stretch' }}>
           <CardMedia
             component="img"
             height="200"
@@ -51,7 +53,7 @@ export default function ProjectCard({ slug, title, description, imageUrl }: Proj
             sx={{ borderBottom: '1px solid #e0e0e0' }}
           />
           <CardContent sx={{ flexGrow: 1, p: 3 }}>
-            <Typography variant="h4" gutterBottom>
+            <Typography variant="h5" gutterBottom sx={{ fontWeight: 600 }}>
               {title}
             </Typography>
             <Box sx={{
