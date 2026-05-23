@@ -139,7 +139,7 @@ export default function ProjectCarousel({ projects, currentSlug }: ProjectCarous
           ref={containerRef}
           sx={{ 
             position: 'relative',
-            height: { xs: '280px', sm: '350px' },
+            height: { xs: '300px', sm: '380px' },
             overflow: 'hidden',
             cursor: 'grab',
             userSelect: 'none',
@@ -230,7 +230,7 @@ export default function ProjectCarousel({ projects, currentSlug }: ProjectCarous
         </IconButton>
       </Box>
 
-      <Box sx={{ display: 'flex', justifyContent: 'center', gap: 1, mt: 4 }}>
+      <Box sx={{ display: 'flex', justifyContent: 'center', gap: 1, mt: 5 }}>
         {similarProjects.map((_, idx) => (
           <Box
             key={idx}
