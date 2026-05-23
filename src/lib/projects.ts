@@ -17,6 +17,7 @@ export interface ProjectData {
   title: string;
   description: string;
   imageUrl: string;
+  projectUrl: string;
   date: string;
   category: string;
   techStack: TechStack[];
@@ -62,6 +63,7 @@ export function getAllProjects(): ProjectData[] {
       title: data.title || 'Untitled',
       description: data.description || '',
       imageUrl: data.imageUrl || '',
+      projectUrl: data.projectUrl || '',
       date: getDate(data, stats.mtime),
       category: data.category || 'Uncategorized',
       techStack: resolveIconSvg(data.techStack || []),
@@ -81,6 +83,7 @@ export function getProjectBySlug(slug: string): ProjectData | null {
     title: data.title || 'Untitled',
     description: data.description || '',
     imageUrl: data.imageUrl || '',
+    projectUrl: data.projectUrl || '',
     date: getDate(data, stats.mtime),
     category: data.category || 'Uncategorized',
     techStack: resolveIconSvg(data.techStack || []),

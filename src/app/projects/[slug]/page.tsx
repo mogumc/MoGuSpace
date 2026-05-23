@@ -26,7 +26,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   if (!project) return { title: 'Not Found' };
   
   // 使用配置的 siteUrl 作为基础，如果没有配置则使用相对路径
-  const projectUrl = siteConfig.siteUrl ? `${siteConfig.siteUrl}/projects/${slug}` : `/projects/${slug}`;
+  const pageUrl = siteConfig.siteUrl ? `${siteConfig.siteUrl}/projects/${slug}` : `/projects/${slug}`;
   
   // 使用文章内的 description 和 imageUrl
   const description = project.description;
@@ -41,7 +41,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     openGraph: {
       title: ogTitle,
       description: description,
-      url: projectUrl,
+      url: pageUrl,
       siteName: siteConfig.title || "MoGuSpace",
       ...(imageUrl && { images: [imageUrl] }),
       locale: siteConfig.siteLocale || "zh-CN",
@@ -163,7 +163,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
               title={project.title}
               author={siteConfig.name}
               date={project.date}
-              projectUrl={project.techStack.find(t => t.url && t.url !== '#')?.url}
+              projectUrl={project.projectUrl}
             />
           </Box>
         </Box>
