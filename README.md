@@ -4,7 +4,11 @@
 
 # MoGuSpace
 
-基于 Next.js + Material UI 的极简几何风格个人作品集，纯静态导出，无需服务端即可部署。
+基于 Next.js + Material UI 的极简几何风格个人作品集，纯静态导出，无需服务端即可部署。  
+  
+[![使用 Netlify 部署](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https%3A%2F%2Fgithub.com%2Fmogumc%2FMoGuSpace)   
+[![使用 EdgeOne Pages 部署](https://cdnstatic.tencentcs.com/edgeone/pages/deploy.svg)](https://edgeone.ai/pages/new?repository-url=https%3A%2F%2Fgithub.com%2Fmogumc%2FMoGuSpace)  
+[![使用 Vercel 部署](https://vercel.com/button)](https://vercel.com/import/project?template=https%3A%2F%2Fgithub.com%2Fmogumc%2FMoGuSpace)    
 
 ## 技术栈
 
