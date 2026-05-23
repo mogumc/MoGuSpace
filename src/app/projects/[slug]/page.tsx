@@ -110,7 +110,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
                 component="img"
                 src={project.imageUrl}
                 alt={project.title}
-                loading="lazy"
+                fetchPriority="high"
                 sx={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
               />
             </Box>
