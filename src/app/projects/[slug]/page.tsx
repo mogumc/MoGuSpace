@@ -3,6 +3,7 @@ import { Box, Typography } from '@mui/material';
 import { marked } from 'marked';
 import { getProjectBySlug, getAllProjects, extractHeadings } from '@/lib/projects';
 import { siteConfig } from '@/lib/config.server';
+import { highlightCodeBlocks } from '@/lib/highlight';
 import ProjectToc from '@/components/ProjectToc';
 import TechStackBox from '@/components/TechStackBox';
 import BackToHome from '@/components/BackToHome';
@@ -64,13 +65,16 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
   const headings = extractHeadings(project.content);
   const allProjects = getAllProjects();
 
+  // 预处理：用 Shiki 高亮所有代码块，替换为带语法高亮的 HTML
+  const preHighlighted = await highlightCodeBlocks(project.content);
+
   const renderer = new marked.Renderer();
   renderer.heading = function ({ text, depth }: { text: string; depth: number }) {
     const id = text.toLowerCase().replace(/[^\w\u4e00-\u9fa5]+/g, '-').replace(/^-|-$/g, '');
     return `<h${depth} id="${id}">${text}</h${depth}>`;
   };
 
-  const htmlContent = marked.parse(project.content, { renderer }) as string;
+  const htmlContent = marked.parse(preHighlighted, { renderer }) as string;
 
   return (
     <Box sx={{ minHeight: '100vh', bgcolor: 'background.default', pt: '80px', pb: { xs: 4, md: 6 }, px: { xs: 2, md: 4 } }}>
@@ -137,6 +141,15 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
             )}
 
             {/* 文章内容 */}
+            {/* Shiki 双主题切换：在 MUI 暗色模式下使用 VSCode Dark+ 配色 */}
+            <style>{`
+              [data-mui-color-scheme="dark"] .shiki,
+              [data-mui-color-scheme="dark"] .shiki span {
+                color: var(--shiki-dark, inherit) !important;
+                background-color: var(--shiki-dark-bg, inherit) !important;
+                --shiki-dark-font-style: inherit;
+              }
+            `}</style>
             <Box
               sx={{
                 lineHeight: 1.6,
@@ -152,7 +165,49 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
                   px: 0.5,
                   py: 0.25,
                   borderRadius: 1,
+                  fontFamily: '"Cascadia Code", "Fira Code", "JetBrains Mono", Consolas, monospace',
+                  fontSize: '0.875em',
+                },
+                // 代码块容器
+                '& .code-block-wrapper': {
+                  position: 'relative',
+                  my: 2,
+                  borderRadius: 1.5,
+                  overflow: 'hidden',
+                  border: '1px solid',
+                  borderColor: 'divider',
+                },
+                // 语言标签
+                '& .code-lang': {
+                  position: 'absolute',
+                  top: 0,
+                  right: 0,
+                  zIndex: 1,
+                  px: 1.5,
+                  py: 0.5,
+                  fontSize: '0.7rem',
                   fontFamily: 'monospace',
+                  color: '#888',
+                  textTransform: 'lowercase',
+                  bgcolor: 'rgba(0,0,0,0.15)',
+                  borderBottomLeftRadius: 6,
+                },
+                // Shiki 生成的 pre
+                '& .code-block-wrapper pre': {
+                  m: 0,
+                  p: '1.25rem 1.5rem',
+                  overflowX: 'auto',
+                  fontSize: '0.85rem',
+                  lineHeight: 1.65,
+                  fontFamily: '"Cascadia Code", "Fira Code", "JetBrains Mono", Consolas, monospace',
+                },
+                // 行内 code 在 pre 内部不加背景
+                '& .code-block-wrapper code': {
+                  bgcolor: 'transparent',
+                  px: 0,
+                  py: 0,
+                  fontSize: 'inherit',
+                  fontFamily: 'inherit',
                 },
               }}
               dangerouslySetInnerHTML={{ __html: htmlContent }}

@@ -76,7 +76,7 @@ export default function ProjectToc({ headings, title }: ProjectTocProps) {
                     primary={heading.text}
                     primaryTypographyProps={{
                       fontSize: '0.8rem',
-                      color: isActive ? '#000' : 'text.secondary',
+                      color: isActive ? 'text.primary' : 'text.secondary',
                       fontWeight: isActive ? 700 : 400,
                     }}
                   />

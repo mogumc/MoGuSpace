@@ -1,7 +1,8 @@
 'use client';
 import { useState, useRef } from 'react';
 import { motion, useScroll, useMotionValueEvent } from 'framer-motion';
-import { Box, Typography, IconButton, Drawer, List, ListItem, ListItemButton, ListItemText, Link as MuiLink } from '@mui/material';
+import { Box, Typography, IconButton, Drawer, List, ListItem, ListItemButton, ListItemText, Link as MuiLink, useTheme } from '@mui/material';
+import { alpha } from '@mui/material/styles';
 import NextLink from 'next/link';
 import { usePathname } from 'next/navigation';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -34,6 +35,8 @@ export default function Navbar({ config }: { config: any }) {
   const pathname = usePathname();
   const isHome = pathname === '/';
   const lastScrollY = useRef(0);
+  const theme = useTheme();
+  const navbarBg = alpha(theme.palette.background.paper, 0.7);
 
   useMotionValueEvent(scrollY, "change", (latest) => {
     if (latest > lastScrollY.current && latest > 150) {
@@ -69,8 +72,8 @@ export default function Navbar({ config }: { config: any }) {
         <Box sx={{
           height: '60px',
           px: 4, display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-          bgcolor: 'rgba(255, 255, 255, 0.7)', backdropFilter: 'blur(10px)',
-          borderBottom: '1px solid #e0e0e0'
+          bgcolor: navbarBg, backdropFilter: 'blur(10px)',
+          borderBottom: '1px solid', borderColor: 'divider'
         }}>
           <MuiLink href="/" component={NextLink} color="inherit" underline="none" onClick={handleTitleClick} sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
             {config.showNavbarLogo && (
@@ -91,7 +94,7 @@ export default function Navbar({ config }: { config: any }) {
         </Box>
       </motion.div>
 
-      <Drawer anchor="right" open={mobileOpen} onClose={() => setMobileOpen(false)} PaperProps={{ sx: { width: '100%', bgcolor: '#fff' } }}>
+      <Drawer anchor="right" open={mobileOpen} onClose={() => setMobileOpen(false)} PaperProps={{ sx: { width: '100%', bgcolor: 'background.paper' } }}>
         <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', p: 2 }}>
           <MuiLink href="/" component={NextLink} color="inherit" underline="none" onClick={() => setMobileOpen(false)} sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
             {config.showNavbarLogo && (

@@ -20,6 +20,10 @@ export default function ThemeProviderWrapper({ children }: { children: React.Rea
     return () => window.matchMedia('(prefers-color-scheme: dark)').removeEventListener('change', listener);
   }, []);
 
+  useEffect(() => {
+    document.documentElement.setAttribute('data-mui-color-scheme', mode);
+  }, [mode]);
+
   const theme = createTheme({
     palette: {
       mode,

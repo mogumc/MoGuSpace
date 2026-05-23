@@ -93,7 +93,7 @@ export function getProjectBySlug(slug: string): ProjectData | null {
 
 export function extractHeadings(markdown: string): { id: string; text: string; level: number }[] {
   const headings: { id: string; text: string; level: number }[] = [];
-  const lines = markdown.split('\n');
+  const lines = markdown.split(/\r?\n/);
   for (const line of lines) {
     const match = line.match(/^(#{1,6})\s+(.+)$/);
     if (match) {
