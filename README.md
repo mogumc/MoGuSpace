@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./public/logo.png" alt="KinhWeb" width="300"/>
+  <img src="./public/logo.png" alt="MoGuSpace" width="300"/>
 </p>
 
 # MoGuSpace
