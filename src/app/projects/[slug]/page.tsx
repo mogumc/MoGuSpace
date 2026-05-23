@@ -181,7 +181,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
       {/* 项目轮播 */}
       <Box sx={{ mt: 6, px: { xs: 2, md: 4 } }}>
         <ProjectCarousel 
-          projects={allProjects.map(p => ({ slug: p.slug, title: p.title, description: p.description, imageUrl: p.imageUrl, category: p.category, techStack: p.techStack }))} 
+          projects={allProjects.map(p => ({ slug: p.slug, title: p.title, description: p.description, imageUrl: p.imageUrl || siteConfig.siteImage, category: p.category, techStack: p.techStack }))} 
           currentSlug={slug} 
         />
       </Box>
