@@ -1,7 +1,7 @@
 'use client';
 import NextLink from 'next/link';
 import { Typography } from '@mui/material';
-import { useLoadingTrigger } from './TopLoader';
+import { useLoadingTrigger } from '@/components/TopLoader';
 
 export default function BackToHome() {
   const triggerLoading = useLoadingTrigger();

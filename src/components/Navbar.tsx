@@ -5,7 +5,7 @@ import { Box, Typography, IconButton, Drawer, List, ListItem, ListItemButton, Li
 import { alpha } from '@mui/material/styles';
 import NextLink from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useLoadingTrigger } from './TopLoader';
+import { useLoadingTrigger } from '@/components/TopLoader';
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
 

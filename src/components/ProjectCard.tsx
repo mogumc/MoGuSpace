@@ -3,7 +3,7 @@ import { Box, Typography, Card, CardContent, CardMedia, CardActionArea } from '@
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useCallback, useRef } from 'react';
-import { useLoadingTrigger } from './TopLoader';
+import { useLoadingTrigger } from '@/components/TopLoader';
 
 interface ProjectCardProps {
   slug: string;

@@ -1,8 +1,10 @@
 'use client';
-import { Box, Typography, Button } from '@mui/material';
 import NextLink from 'next/link';
+import { Box, Typography, Button } from '@mui/material';
+import { useLoadingTrigger } from '@/components/TopLoader';
 
 export default function NotFound() {
+  const triggerLoading = useLoadingTrigger();
   return (
     <Box sx={{ 
       minHeight: '100vh', 
@@ -20,7 +22,7 @@ export default function NotFound() {
         页面不存在
       </Typography>
       <MuiLink href="/" component={NextLink} underline="none">
-        <Button variant="outlined" size="large">
+        <Button onClick={triggerLoading} variant="outlined" size="large">
           返回首页
         </Button>
       </MuiLink>
