@@ -1,6 +1,6 @@
 'use client';
 import { ThemeProvider, createTheme, CssBaseline } from '@mui/material';
-import { useState, useEffect, createContext, useContext } from 'react';
+import { useState, useEffect, useMemo, createContext, useContext } from 'react';
 
 const ColorModeContext = createContext({ toggleColorMode: () => {} });
 
@@ -24,7 +24,7 @@ export default function ThemeProviderWrapper({ children }: { children: React.Rea
     document.documentElement.setAttribute('data-mui-color-scheme', mode);
   }, [mode]);
 
-  const theme = createTheme({
+  const theme = useMemo(() => createTheme({
     palette: {
       mode,
       background: {
@@ -32,7 +32,7 @@ export default function ThemeProviderWrapper({ children }: { children: React.Rea
         paper: mode === 'dark' ? '#2d2d2d' : '#ffffff',
       },
     },
-  });
+  }), [mode]);
 
   return (
     <ColorModeContext.Provider value={{ toggleColorMode: () => setMode(m => m === 'light' ? 'dark' : 'light') }}>
