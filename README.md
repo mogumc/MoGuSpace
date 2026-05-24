@@ -21,6 +21,7 @@
 - **动画**: Framer Motion
 - **样式**: Emotion (CSS-in-JS)
 - **内容**: Markdown (gray-matter) + YAML (js-yaml)
+- **代码高亮**: Shiki
 - **代码规范**: ESLint flat config (core-web-vitals + TypeScript)
 
 ## 功能特性
@@ -29,11 +30,14 @@
 - 项目按分类 (category) 自动分组，Sidebar 侧边栏快速导航
 - 滚动触发背景虚化与彩色→黑白渐变
 - Sticky 顶部导航栏，下滑隐藏上滑显示
-- 明暗主题切换
+- 手动明暗主题切换
 - 页面过渡动画
 - 移动端抽屉菜单 + Sidebar 自动隐藏
+- 顶部加载进度条，支持站内路由、浏览器前进/后退
+- 智能链接处理：站内跳转走客户端路由，站外链接新标签打开
 - 技能图标展示（内置 404 个技术 SVG 图标，支持 Dark/Light 变体）
-- 项目详情页，支持 Markdown 渲染 + 目录导航 (TOC)
+- 项目详情页，支持 Markdown 渲染 + 目录导航 + 锚点定位
+- 相似项目轮播推荐
 - SEO 优化（Open Graph + Twitter Card 元数据）
 
 ## 项目结构
@@ -44,7 +48,7 @@
 │   └── *.md                        # 项目 Markdown 文件
 ├── icons/                          # 技术图标（404 个 SVG）
 ├── src/
-│   ├── assets/                     # 资源文件（图片等）
+│   ├── assets/                     # 资源文件（favicon、背景图等）
 │   ├── app/
 │   │   ├── layout.tsx              # 根布局（Theme + 背景层 + 导航）
 │   │   ├── page.tsx                # 首页（Intro + Skills + Projects）
@@ -65,16 +69,16 @@
 │   │   ├── ProjectToc.tsx          # 项目目录
 │   │   ├── Sidebar.tsx             # 分类侧边栏
 │   │   ├── SkillSection.tsx        # 技能展示
-│   │   ├── SocialHeader.tsx        # 社交头部
+│   │   ├── SmartLink.tsx           # 智能链接
 │   │   ├── SocialLinks.tsx         # 社交链接
 │   │   ├── TechStackBox.tsx        # 技术栈展示
-│   │   └── ThemeProvider.tsx       # 主题切换
+│   │   ├── ThemeProvider.tsx       # 主题切换
+│   │   └── TopLoader.tsx           # 顶部加载进度条
 │   ├── lib/
 │   │   ├── config.server.ts        # 读取 config.yml
+│   │   ├── highlight.ts            # Shiki 代码高亮
 │   │   ├── icons.server.ts         # 读取 SVG 图标
 │   │   └── projects.ts             # 解析 Markdown 项目数据
-│   └── theme/
-│       └── theme.ts                # MUI 主题定义
 ├── next.config.ts                  # Next.js 配置
 ├── eslint.config.mjs               # ESLint 配置
 └── package.json
@@ -108,15 +112,15 @@ skills:
 
 navbar:
   - label: "GitHub"
-    url: "#"
+    url: "https://github.com/xxx"
 
 social:
   - label: "GitHub"
-    url: "#"
+    url: "https://github.com/xxx"
 
 friends:
   - label: "Friend Blog"
-    url: "#"
+    url: "https://example.com"
 ```
 
 ## 添加项目
