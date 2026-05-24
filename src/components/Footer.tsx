@@ -5,21 +5,23 @@ export default function Footer({ config }: { config: any }) {
   return (
     <Box sx={{ 
       borderTop: '1px solid #e0e0e0', 
-      py: 6, 
-      px: 8, 
+      py: { xs: 4, md: 6 }, 
+      px: { xs: 2, md: 8 }, 
       display: 'flex', 
       flexDirection: { xs: 'column', md: 'row' },
-      justifyContent: 'space-between', 
+      justifyContent: { xs: 'center', md: 'space-between' },
       alignItems: 'center',
-      gap: 4
+      gap: 2
     }}>
-      <Typography variant="body2" color="text.secondary">
-        &copy; {new Date().getFullYear()} {config.name}. All rights reserved.
-      </Typography>
+      <Box sx={{ textAlign: { xs: 'center', md: 'left' }, flexShrink: 0 }}>
+        <Typography variant="body2" color="text.secondary">
+          &copy; {new Date().getFullYear()} {config.name}. All rights reserved.
+        </Typography>
+      </Box>
       <Box sx={{ 
         display: 'flex', 
         flexWrap: 'wrap', 
-        justifyContent: 'center', 
+        justifyContent: { xs: 'center', md: 'flex-end' }, 
         alignItems: 'center',
         gap: 1 
       }}>
@@ -27,7 +29,7 @@ export default function Footer({ config }: { config: any }) {
         <Box sx={{ 
           display: 'flex', 
           flexWrap: 'wrap', 
-          justifyContent: 'center', 
+          justifyContent: { xs: 'center', md: 'flex-end' }, 
           gap: 1 
         }}>
           {friends.map((link: any) => (
