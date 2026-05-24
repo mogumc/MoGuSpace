@@ -233,7 +233,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
         <Box sx={{
           width: '200px',
           flexShrink: 0,
-          display: { xs: 'none', lg: 'block' },
+          display: { xs: 'none', md: 'block' },
         }}>
           <ProjectToc headings={headings} title={project.title} />
         </Box>
