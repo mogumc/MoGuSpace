@@ -12,7 +12,7 @@
 
 ## 预览
 
-！[预览](https://pic.moguq.top/images/space.5kld8ebbick0.webp)
+![预览](https://pic.moguq.top/images/space.5kld8ebbick0.webp)
 
 ## 技术栈
 
