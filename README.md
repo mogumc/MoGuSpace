@@ -39,6 +39,7 @@
 - 项目详情页，支持 Markdown 渲染 + 目录导航 + 锚点定位
 - 相似项目轮播推荐
 - SEO 优化（Open Graph + Twitter Card 元数据）
+- 自动生成 sitemap.xml（构建时扫描 content/*.md，附带默认频率和优先级）
 
 ## 项目结构
 
@@ -47,6 +48,8 @@
 │   ├── config.yml                  # 站点配置（名称、技能、社交、友链等）
 │   └── *.md                        # 项目 Markdown 文件
 ├── icons/                          # 技术图标（404 个 SVG）
+├── scripts/
+│   └── generate-sitemap.mjs        # Sitemap 生成（npm构建后自动运行）
 ├── src/
 │   ├── assets/                     # 资源文件（favicon、背景图等）
 │   ├── app/
@@ -130,6 +133,7 @@ friends:
 ```markdown
 ---
 title: 项目名称
+author: 开发人员
 description: 项目描述
 category: Web
 projectUrl: https://项目地址.com
@@ -150,6 +154,7 @@ techStack:
 |---|---|---|---|
 | `title` | 否 | `"Untitled"` | 项目标题 |
 | `description` | 否 | `""` | 项目描述 |
+| `author` | 否 | config 中 `name` | 开发人员，未填写则使用站点站长名 |
 | `category` | 否 | `"Uncategorized"` | 分类，用于分组和侧边栏导航 |
 | `projectUrl` | 否 | `""` | 项目地址 |
 | `imageUrl` | 否 | config 中 `siteImage` | 封面图路径 |
