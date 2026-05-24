@@ -10,6 +10,10 @@
 [![使用 EdgeOne Pages 部署](https://cdnstatic.tencentcs.com/edgeone/pages/deploy.svg)](https://edgeone.ai/pages/new?repository-url=https%3A%2F%2Fgithub.com%2Fmogumc%2FMoGuSpace)  
 [![使用 Vercel 部署](https://vercel.com/button)](https://vercel.com/import/project?template=https%3A%2F%2Fgithub.com%2Fmogumc%2FMoGuSpace)    
 
+## 预览
+
+！[预览](https://pic.moguq.top/images/space.5kld8ebbick0.webp)
+
 ## 技术栈
 
 - **框架**: Next.js 16 (App Router, `output: 'export'` 静态导出)
