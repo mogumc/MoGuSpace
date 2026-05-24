@@ -20,9 +20,9 @@ export default function SkillSection({ skills = [] }: SkillSectionProps) {
   const textColor = isDark ? '#e0e0e0' : '#000';
 
   return (
-    <Box sx={{ p: 4, border: `1px solid ${borderColor}`, mb: 0, bgcolor: 'transparent' }}>
+    <Box sx={{ p: { xs: 2, md: 3 }, border: `1px solid ${borderColor}`, mb: 0, bgcolor: 'transparent' }}>
       <Typography variant="h4" sx={{ mb: 3, letterSpacing: '-0.02em', color: textColor }}>SKILLS</Typography>
-      <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2 }}>
+      <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1.5 }}>
         {skills.map((skill) => {
           const isLink = skill.url && skill.url !== '#';
           const Component = isLink ? 'a' : 'span';
@@ -32,16 +32,18 @@ export default function SkillSection({ skills = [] }: SkillSectionProps) {
               component={Component}
               {...(isLink ? { href: skill.url, target: '_blank', rel: 'noopener noreferrer' } : {})}
               sx={{
-                px: 2,
-                py: 1,
+                px: 1.5,
+                py: 0.5,
                 border: `1px solid ${borderColor}`,
                 color: textColor,
                 display: 'flex',
                 alignItems: 'center',
-                gap: 1,
+                gap: 0.5,
                 textDecoration: 'none',
                 transition: 'all 0.2s',
                 cursor: isLink ? 'pointer' : 'default',
+                fontSize: '0.875rem',
+                minWidth: 'fit-content',
                 '&:hover': {
                   bgcolor: textColor,
                   color: isDark ? '#000' : '#fff',
