@@ -1,5 +1,6 @@
 'use client';
 import { Box, Typography, Button } from '@mui/material';
+import NextLink from 'next/link';
 
 export default function NotFound() {
   return (
@@ -18,9 +19,11 @@ export default function NotFound() {
       <Typography variant="h5" sx={{ mb: 4, color: 'text.secondary' }}>
         页面不存在
       </Typography>
-      <Button variant="outlined" size="large" onClick={() => (window.location.href = '/')}>
-        返回首页
-      </Button>
+      <MuiLink href="/" component={NextLink} underline="none">
+        <Button variant="outlined" size="large">
+          返回首页
+        </Button>
+      </MuiLink>
     </Box>
   );
 }
