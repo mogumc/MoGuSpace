@@ -36,8 +36,15 @@ export default function TopLoader({ children }: { children: React.ReactNode }) {
     }
   }, [pathname, stopLoading]);
 
+  const prevPopPathname = useRef(pathname);
   useEffect(() => {
-    const handlePopState = () => startLoading();
+    const handlePopState = () => {
+      const currentPathname = window.location.pathname;
+      if (currentPathname !== prevPopPathname.current) {
+        prevPopPathname.current = currentPathname;
+        startLoading();
+      }
+    };
     const handlePageShow = () => stopLoading();
     window.addEventListener('popstate', handlePopState);
     window.addEventListener('pageshow', handlePageShow);
