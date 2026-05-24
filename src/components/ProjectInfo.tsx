@@ -11,7 +11,7 @@ interface ProjectInfoProps {
 }
 
 export default function ProjectInfo({ title, author, date, projectUrl, pageUrl }: ProjectInfoProps) {
-  const [copied, setCopied] = useState(false);
+  const [copyStatus, setCopyStatus] = useState<'idle' | 'success' | 'error'>('idle');
   const [shareUrl, setShareUrl] = useState(pageUrl);
 
   useEffect(() => {
@@ -21,13 +21,35 @@ export default function ProjectInfo({ title, author, date, projectUrl, pageUrl }
     }
   }, [pageUrl]);
 
+  const showStatus = (status: 'success' | 'error') => {
+    setCopyStatus(status);
+    setTimeout(() => setCopyStatus('idle'), 2000);
+  };
+
+  const fallbackCopy = (text: string) => {
+    const textarea = document.createElement('textarea');
+    textarea.value = text;
+    textarea.style.position = 'fixed';
+    textarea.style.opacity = '0';
+    document.body.appendChild(textarea);
+    textarea.select();
+    try {
+      document.execCommand('copy');
+      showStatus('success');
+    } catch {
+      showStatus('error');
+    }
+    document.body.removeChild(textarea);
+  };
+
   const handleCopy = (text: string) => {
-    navigator.clipboard.writeText(text).then(() => {
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    }).catch(() => {
-      // Clipboard API 不可用时静默降级
-    });
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(text).then(() => {
+        showStatus('success');
+      }).catch(() => fallbackCopy(text));
+    } else {
+      fallbackCopy(text);
+    }
   };
 
   const linkSx = {
@@ -80,7 +102,7 @@ export default function ProjectInfo({ title, author, date, projectUrl, pageUrl }
                 onClick={() => handleCopy(item.value)}
                 sx={{ ...linkSx, cursor: 'pointer' }}
               >
-                {copied ? '已复制！' : item.value}
+                {copyStatus === 'success' ? '已复制！' : copyStatus === 'error' ? '复制失败' : item.value}
               </Typography>
             ) : (
               <Typography component="span">{item.value}</Typography>
