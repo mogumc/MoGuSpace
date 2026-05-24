@@ -45,7 +45,16 @@ export default function ProjectInfo({ title, author, date, projectUrl }: Project
                 href={item.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                sx={{ color: 'primary.main', textDecoration: 'underline', '&:hover': { opacity: 0.8 }, wordBreak: 'break-all' }}
+                sx={{ 
+                  color: 'primary.main', 
+                  textDecoration: 'underline', 
+                  '&:hover': { opacity: 0.8 }, 
+                  whiteSpace: 'nowrap',
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
+                  display: 'block',
+                  maxWidth: '100%'
+                }}
               >
                 {item.value}
               </Typography>
