@@ -15,7 +15,7 @@ export default function ProjectInfo({ title, author, date, projectUrl, pageUrl }
   const [shareUrl, setShareUrl] = useState(pageUrl);
 
   useEffect(() => {
-    const realUrl = window.location.href;
+    const realUrl = window.location.origin + window.location.pathname;
     if (realUrl !== pageUrl) {
       setShareUrl(realUrl);
     }
