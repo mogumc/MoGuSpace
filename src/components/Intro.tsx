@@ -22,7 +22,11 @@ export default function Intro({ name, hasBackground, config }: IntroProps) {
       p: 8,
       color: textColor
     }}>
-      <Typography variant="h1">HELLO, I AM {name}</Typography>
+      <Typography variant="h1" sx={{
+        fontSize: { xs: 'clamp(1.5rem, 8vw, 7rem)' },
+        wordBreak: 'break-word',
+        lineHeight: 1.2
+      }}>HELLO, I AM {name}</Typography>
       <SocialLinks config={config} />
     </Box>
   );

@@ -102,6 +102,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
           overflow: 'hidden',
           bgcolor: 'background.paper',
           minWidth: 0,
+          wordBreak: 'break-word',
         }}>
           {/* 顶部项目图片 */}
           {project.imageUrl && (
@@ -153,6 +154,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
             <Box
               sx={{
                 lineHeight: 1.6,
+                overflowX: 'auto',
                 '& p': { mt: 0, mb: 1.5 },
                 '& ul': { pl: 3, mb: 1.5 },
                 '& li': { mb: 0.5 },

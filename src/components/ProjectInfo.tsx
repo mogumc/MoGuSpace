@@ -45,7 +45,7 @@ export default function ProjectInfo({ title, author, date, projectUrl }: Project
                 href={item.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                sx={{ color: 'primary.main', textDecoration: 'underline', '&:hover': { opacity: 0.8 } }}
+                sx={{ color: 'primary.main', textDecoration: 'underline', '&:hover': { opacity: 0.8 }, wordBreak: 'break-all' }}
               >
                 {item.value}
               </Typography>

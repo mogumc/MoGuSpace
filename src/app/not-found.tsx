@@ -1,6 +1,6 @@
 'use client';
 import NextLink from 'next/link';
-import { Box, Typography, Button } from '@mui/material';
+import { Box, Typography, Button, Link as MuiLink } from '@mui/material';
 import { useLoadingTrigger } from '@/components/TopLoader';
 
 export default function NotFound() {
