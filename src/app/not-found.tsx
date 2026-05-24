@@ -7,7 +7,7 @@ export default function NotFound() {
   const triggerLoading = useLoadingTrigger();
   return (
     <Box sx={{ 
-      minHeight: '100vh', 
+      minHeight: { xs: '100vh', md: '100dvh' }, 
       display: 'flex', 
       flexDirection: 'column', 
       alignItems: 'center', 

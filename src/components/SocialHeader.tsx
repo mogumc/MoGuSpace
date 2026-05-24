@@ -3,7 +3,7 @@ import { Box, Typography, Link } from '@mui/material';
 export default function SocialHeader() {
   return (
     <Box sx={{ 
-      height: '100vh', 
+      height: { xs: '100vh', md: '100dvh' }, 
       display: 'flex', 
       flexDirection: 'column', 
       alignItems: 'center', 

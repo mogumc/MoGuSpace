@@ -77,7 +77,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
   const htmlContent = marked.parse(preHighlighted, { renderer }) as string;
 
   return (
-    <Box sx={{ minHeight: '100vh', bgcolor: 'background.default', pt: '80px', pb: { xs: 4, md: 6 }, px: { xs: 2, md: 4 } }}>
+    <Box sx={{ minHeight: { xs: '100vh', md: '100dvh' }, bgcolor: 'background.default', pt: '80px', pb: { xs: 4, md: 6 }, px: { xs: 2, md: 4 } }}>
       {/* 返回首页 */}
       <Box sx={{ maxWidth: '900px', mx: 'auto', mb: 3 }}>
         <BackToHome />

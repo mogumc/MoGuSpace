@@ -43,7 +43,7 @@ export default function Home() {
     <Box>
       <Intro name={siteConfig.name} hasBackground={!!siteConfig.background} config={siteConfig} />
 
-      <Box id="skills" sx={{ pt: 8, pb: 0, px: 8, scrollMarginTop: '80px' }}>
+      <Box id="skills" sx={{ pt: 8, pb: 0, px: { xs: 2, md: 8 }, scrollMarginTop: '80px' }}>
         <SkillSection skills={siteConfig.skills || []} />
       </Box>
 

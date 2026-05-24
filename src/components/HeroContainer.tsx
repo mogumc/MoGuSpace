@@ -7,7 +7,7 @@ interface HeroContainerProps {
 
 export default function HeroContainer({ children }: HeroContainerProps) {
   return (
-    <Box sx={{ position: 'relative', width: '100%', minHeight: '100vh', zIndex: 1 }}>
+    <Box sx={{ position: 'relative', width: '100%', minHeight: { xs: '100vh', md: '100dvh' }, zIndex: 1 }}>
       {children}
     </Box>
   );
