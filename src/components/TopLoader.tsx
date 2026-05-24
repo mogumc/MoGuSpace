@@ -36,20 +36,26 @@ export default function TopLoader({ children }: { children: React.ReactNode }) {
     }
   }, [pathname, stopLoading]);
 
-  const prevPopPathname = useRef(pathname);
+  const lastPathname = useRef(pathname);
   useEffect(() => {
     const handlePopState = () => {
-      const currentPathname = window.location.pathname;
-      if (currentPathname !== prevPopPathname.current) {
-        prevPopPathname.current = currentPathname;
+      const cur = window.location.pathname;
+      if (cur !== lastPathname.current) {
+        lastPathname.current = cur;
         startLoading();
       }
     };
+    // 拦截纯 hash 变化，不触发 TopLoader
+    const handleHashChange = (e: HashChangeEvent) => {
+      e.stopImmediatePropagation();
+    };
     const handlePageShow = () => stopLoading();
     window.addEventListener('popstate', handlePopState);
+    window.addEventListener('hashchange', handleHashChange, true);
     window.addEventListener('pageshow', handlePageShow);
     return () => {
       window.removeEventListener('popstate', handlePopState);
+      window.removeEventListener('hashchange', handleHashChange, true);
       window.removeEventListener('pageshow', handlePageShow);
     };
   }, [startLoading, stopLoading]);
