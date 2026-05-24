@@ -64,6 +64,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
 
   const headings = extractHeadings(project.content);
   const allProjects = getAllProjects();
+  const pageUrl = siteConfig.siteUrl ? `${siteConfig.siteUrl}/projects/${slug}` : `/projects/${slug}`;
 
   // 预处理：用 Shiki 高亮所有代码块，替换为带语法高亮的 HTML
   const preHighlighted = await highlightCodeBlocks(project.content);
@@ -75,6 +76,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
   };
 
   const htmlContent = marked.parse(preHighlighted, { renderer }) as string;
+  const lazyHtmlContent = htmlContent.replace(/<img(?![^>]*?\s+loading\s*=)/gi, '<img loading="lazy"');
 
   return (
     <Box sx={{ minHeight: { xs: '100vh', md: '100dvh' }, bgcolor: 'background.default', pt: '80px', pb: { xs: 4, md: 6 }, px: { xs: 2, md: 4 } }}>
@@ -112,6 +114,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
                 src={project.imageUrl}
                 alt={project.title}
                 fetchPriority="high"
+                loading="lazy"
                 sx={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
               />
             </Box>
@@ -212,7 +215,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
                   fontFamily: 'inherit',
                 },
               }}
-              dangerouslySetInnerHTML={{ __html: htmlContent }}
+              dangerouslySetInnerHTML={{ __html: lazyHtmlContent }}
             />
 
             {/* 项目信息 */}
@@ -221,6 +224,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
               author={siteConfig.name}
               date={project.date}
               projectUrl={project.projectUrl}
+              pageUrl={pageUrl}
             />
           </Box>
         </Box>
