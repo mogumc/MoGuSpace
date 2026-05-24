@@ -1,7 +1,12 @@
 import { Box, Typography, Link } from '@mui/material';
 
+interface Friend {
+  label: string;
+  url: string;
+}
+
 export default function Footer({ config }: { config: any }) {
-  const friends = config.friends || [];
+  const friends: Friend[] = config.friends || [];
   return (
     <Box sx={{ 
       borderTop: '1px solid #e0e0e0', 
@@ -32,7 +37,7 @@ export default function Footer({ config }: { config: any }) {
           justifyContent: { xs: 'center', md: 'flex-end' }, 
           gap: 1 
         }}>
-          {friends.map((link: any) => (
+          {friends.map((link: Friend) => (
             <Link key={link.label} href={link.url} color="inherit" underline="hover" fontSize="0.875rem" sx={{ whiteSpace: 'nowrap' }}>{link.label}</Link>
           ))}
         </Box>

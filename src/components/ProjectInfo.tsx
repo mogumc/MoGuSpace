@@ -7,16 +7,14 @@ interface ProjectInfoProps {
   author?: string;
   date: string;
   projectUrl?: string;
-  pageUrl: string; // 新增
+  pageUrl: string;
 }
 
 export default function ProjectInfo({ title, author, date, projectUrl, pageUrl }: ProjectInfoProps) {
   const [copied, setCopied] = useState(false);
-  // 使用传入的 pageUrl (Canonical) 作为初始状态
   const [shareUrl, setShareUrl] = useState(pageUrl);
 
   useEffect(() => {
-    // 客户端挂载后获取真实地址，并对比更新
     const realUrl = window.location.href;
     if (realUrl !== pageUrl) {
       setShareUrl(realUrl);
@@ -27,7 +25,20 @@ export default function ProjectInfo({ title, author, date, projectUrl, pageUrl }
     navigator.clipboard.writeText(text).then(() => {
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
+    }).catch(() => {
+      // Clipboard API 不可用时静默降级
     });
+  };
+
+  const linkSx = {
+    color: 'primary.main',
+    textDecoration: 'underline',
+    '&:hover': { opacity: 0.8 },
+    whiteSpace: 'nowrap' as const,
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    display: 'block',
+    maxWidth: '100%',
   };
 
   const items = [
@@ -35,7 +46,7 @@ export default function ProjectInfo({ title, author, date, projectUrl, pageUrl }
     { label: '开发人员', value: author },
     { label: '创建时间', value: date },
     ...(projectUrl ? [{ label: '项目地址', value: projectUrl, href: projectUrl, isLink: true }] : []),
-    { label: '链接', value: shareUrl, isCopy: true }, // 使用动态修正后的 shareUrl
+    { label: '链接', value: shareUrl, isCopy: true },
   ];
 
   return (
@@ -59,16 +70,7 @@ export default function ProjectInfo({ title, author, date, projectUrl, pageUrl }
                 href={item.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                sx={{ 
-                  color: 'primary.main', 
-                  textDecoration: 'underline', 
-                  '&:hover': { opacity: 0.8 }, 
-                  whiteSpace: 'nowrap',
-                  overflow: 'hidden',
-                  textOverflow: 'ellipsis',
-                  display: 'block',
-                  maxWidth: '100%'
-                }}
+                sx={linkSx}
               >
                 {item.value}
               </Typography>
@@ -76,17 +78,7 @@ export default function ProjectInfo({ title, author, date, projectUrl, pageUrl }
               <Typography
                 component="span"
                 onClick={() => handleCopy(item.value)}
-                sx={{ 
-                  color: 'primary.main', 
-                  textDecoration: 'underline', 
-                  cursor: 'pointer',
-                  '&:hover': { opacity: 0.8 }, 
-                  whiteSpace: 'nowrap',
-                  overflow: 'hidden',
-                  textOverflow: 'ellipsis',
-                  display: 'block',
-                  maxWidth: '100%'
-                }}
+                sx={{ ...linkSx, cursor: 'pointer' }}
               >
                 {copied ? '已复制！' : item.value}
               </Typography>

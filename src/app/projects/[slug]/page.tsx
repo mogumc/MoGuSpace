@@ -114,7 +114,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
                 src={project.imageUrl}
                 alt={project.title}
                 fetchPriority="high"
-                loading="lazy"
+                loading="eager"
                 sx={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
               />
             </Box>
