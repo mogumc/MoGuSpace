@@ -221,7 +221,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
             {/* 项目信息 */}
             <ProjectInfo
               title={project.title}
-              author={siteConfig.name}
+              author={project.author || siteConfig.name}
               date={project.date}
               projectUrl={project.projectUrl}
               pageUrl={pageUrl}

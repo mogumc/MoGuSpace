@@ -15,6 +15,7 @@ export interface TechStack {
 export interface ProjectData {
   slug: string;
   title: string;
+  author: string;
   description: string;
   imageUrl: string;
   projectUrl: string;
@@ -77,6 +78,7 @@ export function getAllProjects(): ProjectData[] {
     return {
       slug,
       title: data.title || 'Untitled',
+      author: data.author || '',
       description: data.description || '',
       imageUrl: data.imageUrl || '',
       projectUrl: data.projectUrl || '',
@@ -97,6 +99,7 @@ export function getProjectBySlug(slug: string): ProjectData | null {
   return {
     slug,
     title: data.title || 'Untitled',
+    author: data.author || '',
     description: data.description || '',
     imageUrl: data.imageUrl || '',
     projectUrl: data.projectUrl || '',
