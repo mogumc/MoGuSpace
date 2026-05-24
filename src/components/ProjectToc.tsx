@@ -21,6 +21,18 @@ export default function ProjectToc({ headings, title }: ProjectTocProps) {
   useEffect(() => {
     if (headings.length === 0) return;
 
+    // 页面加载时自动滚动到 URL 锚点
+    const hash = window.location.hash.slice(1);
+    if (hash) {
+      const el = document.getElementById(hash);
+      if (el) {
+        setTimeout(() => {
+          const y = el.getBoundingClientRect().top + window.scrollY - NAVBAR_HEIGHT - 10;
+          window.scrollTo({ top: y, behavior: 'smooth' });
+        }, 100);
+      }
+    }
+
     const handleScroll = () => {
       for (let i = headings.length - 1; i >= 0; i--) {
         const el = document.getElementById(headings[i].id);
@@ -42,6 +54,8 @@ export default function ProjectToc({ headings, title }: ProjectTocProps) {
     if (!el) return;
     const y = el.getBoundingClientRect().top + window.scrollY - NAVBAR_HEIGHT - 10;
     window.scrollTo({ top: y, behavior: 'smooth' });
+    // 同步更新 URL hash，方便分享
+    history.replaceState(null, '', `#${id}`);
   };
 
   return (

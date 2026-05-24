@@ -36,12 +36,16 @@ export default function TopLoader({ children }: { children: React.ReactNode }) {
     }
   }, [pathname, stopLoading]);
 
-  // 浏览器前进/后退时立即显示
   useEffect(() => {
     const handlePopState = () => startLoading();
+    const handlePageShow = () => stopLoading();
     window.addEventListener('popstate', handlePopState);
-    return () => window.removeEventListener('popstate', handlePopState);
-  }, [startLoading]);
+    window.addEventListener('pageshow', handlePageShow);
+    return () => {
+      window.removeEventListener('popstate', handlePopState);
+      window.removeEventListener('pageshow', handlePageShow);
+    };
+  }, [startLoading, stopLoading]);
 
   return (
     <LoadingContext.Provider value={startLoading}>

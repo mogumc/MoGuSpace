@@ -1,6 +1,7 @@
 'use client';
-import { Box, Typography, List, ListItem, ListItemButton, ListItemText, Link } from '@mui/material';
+import { Box, Typography, List, ListItem, ListItemButton, ListItemText } from '@mui/material';
 import { useState, useEffect, useRef } from 'react';
+import SmartLink from '@/components/SmartLink';
 
 export default function Sidebar({ config, categories }: { config: any, categories: string[] }) {
   const [activeId, setActiveId] = useState(categories[0]);
@@ -69,7 +70,7 @@ export default function Sidebar({ config, categories }: { config: any, categorie
       <Box sx={{ mt: 4, pt: 2, borderTop: '1px solid #e0e0e0' }}>
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5 }}>
           {(config.social || []).map((link: any) => (
-            <Link key={link.label} href={link.url} color="inherit" underline="hover" fontSize="0.8rem">{link.label}</Link>
+            <SmartLink key={link.label} href={link.url} color="inherit" underline="hover" fontSize="0.8rem">{link.label}</SmartLink>
           ))}
         </Box>
       </Box>

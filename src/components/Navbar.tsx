@@ -24,12 +24,16 @@ function smoothScrollTo(target: number, duration: number = 500) {
     const ease = progress < 0.5
       ? 4 * progress * progress * progress
       : 1 - Math.pow(-2 * progress + 2, 3) / 2;
-    window.scrollTo(0, start + change * ease);
+    window.scrollTo(0, start + change * progress);
     if (progress < 1) {
       requestAnimationFrame(step);
     }
   }
   requestAnimationFrame(step);
+}
+
+function isExternal(url: string): boolean {
+  return /^https?:\/\//.test(url);
 }
 
 export default function Navbar({ config }: { config: any }) {
@@ -59,6 +63,8 @@ export default function Navbar({ config }: { config: any }) {
     if (isHome) {
       e.preventDefault();
       smoothScrollTo(0, 600);
+    } else {
+      triggerLoading();
     }
   };
 
@@ -86,14 +92,18 @@ export default function Navbar({ config }: { config: any }) {
               {config.showNavbarLogo && (
                 <Box component="img" src={config.favicon || "/assets/favicon.png"} alt="Logo" sx={{ height: 32, width: 32 }} />
               )}
-              <Typography variant="h6" fontWeight="bold">{config.name}</Typography>
+              <Typography variant="h6" fontWeight="bold">{config.title}</Typography>
             </MuiLink>
           </Box>
 
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
             <Box sx={{ display: { xs: 'none', md: 'flex' }, gap: 3 }}>
               {navLinks.map((link: { label: string; url: string }) => (
-                <MuiLink key={link.label} href={link.url} component={NextLink} color="inherit" underline="hover" onClick={triggerLoading}>{link.label}</MuiLink>
+                isExternal(link.url) ? (
+                  <MuiLink key={link.label} href={link.url} color="inherit" underline="hover" target="_blank" rel="noopener noreferrer">{link.label}</MuiLink>
+                ) : (
+                  <MuiLink key={link.label} href={link.url} component={NextLink} color="inherit" underline="hover" onClick={() => { if (link.url !== pathname) triggerLoading(); }}>{link.label}</MuiLink>
+                )
               ))}
             </Box>
             <IconButton
@@ -115,7 +125,7 @@ export default function Navbar({ config }: { config: any }) {
             {config.showNavbarLogo && (
               <Box component="img" src={config.favicon || "/assets/favicon.png"} alt="Logo" sx={{ height: 32, width: 32 }} />
             )}
-            <Typography variant="h6" fontWeight="bold">{config.name}</Typography>
+            <Typography variant="h6" fontWeight="bold">{config.title}</Typography>
           </MuiLink>
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
             <IconButton onClick={toggleColorMode} aria-label="toggle theme">
@@ -127,15 +137,21 @@ export default function Navbar({ config }: { config: any }) {
         <List sx={{ mt: 2, flex: 1 }}>
           {navLinks.map((link: { label: string; url: string }) => (
             <ListItem key={link.label} disablePadding>
-              <ListItemButton component="a" href={link.url} onClick={() => { triggerLoading(); setMobileOpen(false); }} sx={{ justifyContent: 'center' }}>
-                <ListItemText primary={link.label} sx={{ textAlign: 'center' }} />
-              </ListItemButton>
+              {isExternal(link.url) ? (
+                <ListItemButton component="a" href={link.url} target="_blank" rel="noopener noreferrer" onClick={() => setMobileOpen(false)} sx={{ justifyContent: 'center' }}>
+                  <ListItemText primary={link.label} sx={{ textAlign: 'center' }} />
+                </ListItemButton>
+              ) : (
+                <ListItemButton component={NextLink} href={link.url} onClick={() => { if (link.url !== pathname) triggerLoading(); setMobileOpen(false); }} sx={{ justifyContent: 'center' }}>
+                  <ListItemText primary={link.label} sx={{ textAlign: 'center' }} />
+                </ListItemButton>
+              )}
             </ListItem>
           ))}
         </List>
         {!isHome && (
           <Box sx={{ p: 2, display: 'flex', justifyContent: 'center' }}>
-            <MuiLink href="/" component={NextLink} color="inherit" underline="none" onClick={() => { triggerLoading(); setMobileOpen(false); }}
+            <MuiLink href="/" component={NextLink} color="inherit" underline="none" onClick={() => { if (pathname !== '/') triggerLoading(); setMobileOpen(false); }}
               sx={{
                 display: 'inline-flex', alignItems: 'center', gap: 0.5,
                 color: 'text.secondary', textDecoration: 'none',
