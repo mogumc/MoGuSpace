@@ -3,12 +3,12 @@ name: "YOUR NAME"
 description: "A minimal geometric portfolio"
 
 siteUrl: "https://yoursite.com"
-siteImage: "/bg.webp"
+siteImage: "/assets/bg.webp"
 siteLocale: "zh-CN"
 
-favicon: ""
+favicon: "/assets/favicon.png"
 
-background: "/bg.webp"
+background: "/assets/bg.webp"
 
 showNavbarLogo: false
 
