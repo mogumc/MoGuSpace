@@ -161,9 +161,9 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
                 '& p': { mt: 0, mb: 1.5 },
                 '& ul': { pl: 3, mb: 1.5 },
                 '& li': { mb: 0.5 },
-                '& h1': { mt: 3, mb: 1.5, fontSize: '1.75rem', fontWeight: 'bold' },
-                '& h2': { mt: 2.5, mb: 1, fontSize: '1.5rem', fontWeight: 'bold', borderBottom: '1px solid', borderColor: 'divider', pb: 0.5 },
-                '& h3': { mt: 2, mb: 0.5, fontSize: '1.25rem', fontWeight: 'bold' },
+                '& h1': { mt: 3, mb: 1.5, fontSize: '1.75rem', fontWeight: 'bold', scrollMarginTop: '80px' },
+                '& h2': { mt: 2.5, mb: 1, fontSize: '1.5rem', fontWeight: 'bold', borderBottom: '1px solid', borderColor: 'divider', pb: 0.5, scrollMarginTop: '80px' },
+                '& h3': { mt: 2, mb: 0.5, fontSize: '1.25rem', fontWeight: 'bold', scrollMarginTop: '80px' },
                 '& strong': { fontWeight: 'bold' },
                 '& code': {
                   bgcolor: 'action.hover',
