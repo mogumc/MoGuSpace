@@ -40,7 +40,6 @@ function ImageBackground({ src, isDark, isTouch }: { src: string; isDark: boolea
   const containerRef = useRef<HTMLDivElement>(null);
   const [imgHeight, setImgHeight] = useState('100dvh');
 
-  // 移动端动态设置高度为 window.innerHeight，桌面端用 dvh 即可
   useEffect(() => {
     if (!isTouch) return;
     const setHeight = () => {

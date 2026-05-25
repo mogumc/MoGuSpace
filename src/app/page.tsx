@@ -1,12 +1,14 @@
 import { Grid, Typography, Box } from '@mui/material';
+import dynamic from 'next/dynamic';
 import ProjectCard from '@/components/ProjectCard';
-import SkillSection from '@/components/SkillSection';
 import Sidebar from '@/components/Sidebar';
 import Intro from '@/components/Intro';
-import Footer from '@/components/Footer';
 import { getAllProjects } from '@/lib/projects';
 import { siteConfig } from '@/lib/config.server';
 import type { Metadata } from 'next';
+
+const SkillSection = dynamic(() => import('@/components/SkillSection'));
+const Footer = dynamic(() => import('@/components/Footer'));
 
 export async function generateMetadata(): Promise<Metadata> {
   const title = `${siteConfig.title} | ${siteConfig.description}`;

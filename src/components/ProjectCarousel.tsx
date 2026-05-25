@@ -153,7 +153,6 @@ export default function ProjectCarousel({ projects, currentSlug }: ProjectCarous
           onTouchStart={handleDragStart}
           onTouchEnd={handleDragEnd}
         >
-          {/* 渲染所有项目，通过 transform 控制位置 */}
           {similarProjects.map((project, idx) => {
             const offset = getItemOffset(idx);
             const absOffset = Math.abs(offset);
