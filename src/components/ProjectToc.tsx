@@ -18,7 +18,9 @@ const NAVBAR_HEIGHT = 80;
 export default function ProjectToc({ headings, title }: ProjectTocProps) {
   const [activeId, setActiveId] = useState('');
   const activeIdRef = useRef(activeId);
-  activeIdRef.current = activeId;
+  useEffect(() => {
+    activeIdRef.current = activeId;
+  }, [activeId]);
 
   useEffect(() => {
     if (headings.length === 0) return;
@@ -60,7 +62,6 @@ export default function ProjectToc({ headings, title }: ProjectTocProps) {
     if (!el) return;
     const y = el.getBoundingClientRect().top + window.scrollY - NAVBAR_HEIGHT - 10;
     window.scrollTo({ top: y, behavior: 'smooth' });
-    // 同步更新 URL hash，方便分享
     history.replaceState(null, '', `#${id}`);
   };
 

@@ -7,7 +7,9 @@ export default function Sidebar({ config, categories }: { config: any, categorie
   const [activeId, setActiveId] = useState(categories[0]);
   const lastScrollY = useRef(0);
   const activeIdRef = useRef(activeId);
-  activeIdRef.current = activeId;
+  useEffect(() => {
+    activeIdRef.current = activeId;
+  }, [activeId]);
 
   useEffect(() => {
     let rafId: number;
