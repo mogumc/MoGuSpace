@@ -16,7 +16,10 @@ export default function Background({ src }: BackgroundProps) {
       <div
         style={{
           position: 'fixed',
-          inset: 0,
+          top: 0,
+          left: 0,
+          width: '100dvw',
+          height: '100dvh',
           background: fallbackColor,
           pointerEvents: 'none',
           willChange: 'transform',
@@ -53,7 +56,10 @@ function ImageBackground({ src }: { src: string }) {
       <motion.div
         style={{
           position: 'fixed',
-          inset: 0,
+          top: 0,
+          left: 0,
+          width: '100dvw',
+          height: '100dvh',
           backgroundImage: `url(${src})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
@@ -67,7 +73,10 @@ function ImageBackground({ src }: { src: string }) {
       <motion.div
         style={{
           position: 'fixed',
-          inset: 0,
+          top: 0,
+          left: 0,
+          width: '100dvw',
+          height: '100dvh',
           backgroundImage: `url(${src})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
