@@ -49,12 +49,9 @@ export default function Navbar({ config }: { config: any }) {
   const { toggleColorMode } = useColorMode();
 
   useMotionValueEvent(scrollY, "change", (latest) => {
-    if (latest > lastScrollY.current && latest > 150) {
-      setHidden(true);
-    } else {
-      setHidden(false);
-    }
+    const shouldHide = latest > lastScrollY.current && latest > 150;
     lastScrollY.current = latest;
+    setHidden((prev) => (prev !== shouldHide ? shouldHide : prev));
   });
 
   const navLinks = config.navbar || [];

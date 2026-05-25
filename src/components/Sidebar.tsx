@@ -6,38 +6,57 @@ import SmartLink from '@/components/SmartLink';
 export default function Sidebar({ config, categories }: { config: any, categories: string[] }) {
   const [activeId, setActiveId] = useState(categories[0]);
   const lastScrollY = useRef(0);
+  const activeIdRef = useRef(activeId);
+  activeIdRef.current = activeId;
 
   useEffect(() => {
+    let rafId: number;
+    let pending = false;
+
     const handleScroll = () => {
-      const scrollY = window.scrollY;
-      const direction = scrollY > lastScrollY.current ? 'down' : 'up';
-      lastScrollY.current = scrollY;
+      if (pending) return;
+      pending = true;
+      rafId = requestAnimationFrame(() => {
+        pending = false;
+        const scrollY = window.scrollY;
+        const direction = scrollY > lastScrollY.current ? 'down' : 'up';
+        lastScrollY.current = scrollY;
 
-      const triggerLine = window.innerHeight * 0.3;
+        const triggerLine = window.innerHeight * 0.3;
+        const current = activeIdRef.current;
+        let nextId = current;
 
-      if (direction === 'down') {
-        for (let i = categories.length - 1; i >= 0; i--) {
-          const el = document.getElementById(categories[i]);
-          if (!el) continue;
-          if (el.getBoundingClientRect().top <= triggerLine) {
-            setActiveId(categories[i]);
-            break;
+        if (direction === 'down') {
+          for (let i = categories.length - 1; i >= 0; i--) {
+            const el = document.getElementById(categories[i]);
+            if (!el) continue;
+            if (el.getBoundingClientRect().top <= triggerLine) {
+              nextId = categories[i];
+              break;
+            }
+          }
+        } else {
+          for (let i = 0; i < categories.length; i++) {
+            const el = document.getElementById(categories[i]);
+            if (!el) continue;
+            if (el.getBoundingClientRect().bottom >= triggerLine) {
+              nextId = categories[i];
+              break;
+            }
           }
         }
-      } else {
-        for (let i = 0; i < categories.length; i++) {
-          const el = document.getElementById(categories[i]);
-          if (!el) continue;
-          if (el.getBoundingClientRect().bottom >= triggerLine) {
-            setActiveId(categories[i]);
-            break;
-          }
+
+        if (nextId !== current) {
+          setActiveId(nextId);
         }
-      }
+      });
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      if (rafId) cancelAnimationFrame(rafId);
+    };
   }, [categories]);
 
   return (

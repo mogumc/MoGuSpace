@@ -1,6 +1,6 @@
 'use client';
 import { Box, Typography, List, ListItem, ListItemButton, ListItemText } from '@mui/material';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 interface Heading {
   id: string;
@@ -17,24 +17,42 @@ const NAVBAR_HEIGHT = 80;
 
 export default function ProjectToc({ headings, title }: ProjectTocProps) {
   const [activeId, setActiveId] = useState('');
+  const activeIdRef = useRef(activeId);
+  activeIdRef.current = activeId;
 
   useEffect(() => {
     if (headings.length === 0) return;
 
+    let rafId: number;
+    let pending = false;
+
     const handleScroll = () => {
-      for (let i = headings.length - 1; i >= 0; i--) {
-        const el = document.getElementById(headings[i].id);
-        if (!el) continue;
-        if (el.getBoundingClientRect().top <= NAVBAR_HEIGHT + 20) {
-          setActiveId(headings[i].id);
-          break;
+      if (pending) return;
+      pending = true;
+      rafId = requestAnimationFrame(() => {
+        pending = false;
+        const current = activeIdRef.current;
+        let nextId = current;
+        for (let i = headings.length - 1; i >= 0; i--) {
+          const el = document.getElementById(headings[i].id);
+          if (!el) continue;
+          if (el.getBoundingClientRect().top <= NAVBAR_HEIGHT + 20) {
+            nextId = headings[i].id;
+            break;
+          }
         }
-      }
+        if (nextId !== current) {
+          setActiveId(nextId);
+        }
+      });
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
     handleScroll();
-    return () => window.removeEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      if (rafId) cancelAnimationFrame(rafId);
+    };
   }, [headings]);
 
   const scrollToHeading = (id: string) => {
