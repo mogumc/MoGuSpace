@@ -19,6 +19,9 @@ export default function Background({ src }: BackgroundProps) {
           inset: 0,
           background: fallbackColor,
           pointerEvents: 'none',
+          willChange: 'transform',
+          transform: 'translateZ(0)',
+          contain: 'paint layout style',
         }}
       />
     );
@@ -56,6 +59,9 @@ function ImageBackground({ src }: { src: string }) {
           backgroundPosition: 'center',
           filter: bwFilter,
           pointerEvents: 'none',
+          willChange: 'transform',
+          transform: 'translateZ(0)',
+          contain: 'paint layout style',
         }}
       />
       <motion.div
@@ -69,6 +75,9 @@ function ImageBackground({ src }: { src: string }) {
           maskImage: mask,
           filter: blur,
           pointerEvents: 'none',
+          willChange: 'transform',
+          transform: 'translateZ(0)',
+          contain: 'paint layout style',
         }}
       />
     </>
