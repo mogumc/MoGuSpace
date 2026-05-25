@@ -3,7 +3,6 @@ import { Box, Typography, Card, CardContent, CardMedia, CardActionArea } from '@
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useCallback, useRef } from 'react';
-import { useLoadingTrigger } from '@/components/TopLoader';
 
 interface ProjectCardProps {
   slug: string;
@@ -15,7 +14,6 @@ interface ProjectCardProps {
 export default function ProjectCard({ slug, title, description, imageUrl }: ProjectCardProps) {
   const router = useRouter();
   const prefetched = useRef(false);
-  const triggerLoading = useLoadingTrigger();
 
   const handleMouseEnter = useCallback(() => {
     if (prefetched.current) return;
@@ -43,7 +41,7 @@ export default function ProjectCard({ slug, title, description, imageUrl }: Proj
       }}
     >
       <Link href={`/projects/${slug}/`} passHref legacyBehavior>
-        <CardActionArea onClick={triggerLoading} sx={{ height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'stretch' }}>
+        <CardActionArea sx={{ height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'stretch' }}>
           <CardMedia
             component="img"
             height="200"

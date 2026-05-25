@@ -3,7 +3,7 @@ import HeroContainer from "@/components/HeroContainer";
 import Navbar from "@/components/Navbar";
 import ThemeProviderWrapper from "@/components/ThemeProvider";
 import { PageTransitionProvider } from "@/components/PageTransitionProvider";
-import TopLoader from "@/components/TopLoader";
+import TopLoaderWrapper from "@/components/TopLoaderWrapper";
 import BackgroundLayer from "@/components/BackgroundLayer";
 import { siteConfig } from "@/lib/config.server";
 
@@ -44,15 +44,14 @@ export default function RootLayout({
     <html lang="zh">
       <body>
         <ThemeProviderWrapper>
-          <TopLoader>
-            <BackgroundLayer src={siteConfig.background} />
-            <Navbar config={siteConfig} />
-            <HeroContainer>
-              <PageTransitionProvider>
-                {children}
-              </PageTransitionProvider>
-            </HeroContainer>
-          </TopLoader>
+          <TopLoaderWrapper />
+          <BackgroundLayer src={siteConfig.background} />
+          <Navbar config={siteConfig} />
+          <HeroContainer>
+            <PageTransitionProvider>
+              {children}
+            </PageTransitionProvider>
+          </HeroContainer>
         </ThemeProviderWrapper>
       </body>
     </html>

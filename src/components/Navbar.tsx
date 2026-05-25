@@ -5,7 +5,6 @@ import { Box, Typography, IconButton, Drawer, List, ListItem, ListItemButton, Li
 import { alpha } from '@mui/material/styles';
 import NextLink from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useLoadingTrigger } from '@/components/TopLoader';
 import { useColorMode } from '@/components/ThemeProvider';
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
@@ -45,7 +44,6 @@ export default function Navbar({ config }: { config: any }) {
   const lastScrollY = useRef(0);
   const theme = useTheme();
   const navbarBg = alpha(theme.palette.background.paper, 0.7);
-  const triggerLoading = useLoadingTrigger();
   const { toggleColorMode } = useColorMode();
 
   useMotionValueEvent(scrollY, "change", (latest) => {
@@ -60,8 +58,6 @@ export default function Navbar({ config }: { config: any }) {
     if (isHome) {
       e.preventDefault();
       smoothScrollTo(0, 600);
-    } else {
-      triggerLoading();
     }
   };
 
@@ -99,7 +95,7 @@ export default function Navbar({ config }: { config: any }) {
                 isExternal(link.url) ? (
                   <MuiLink key={link.label} href={link.url} color="inherit" underline="hover" target="_blank" rel="noopener noreferrer">{link.label}</MuiLink>
                 ) : (
-                  <MuiLink key={link.label} href={link.url} component={NextLink} color="inherit" underline="hover" onClick={() => { if (link.url !== pathname) triggerLoading(); }}>{link.label}</MuiLink>
+                  <MuiLink key={link.label} href={link.url} component={NextLink} color="inherit" underline="hover">{link.label}</MuiLink>
                 )
               ))}
             </Box>
@@ -139,7 +135,7 @@ export default function Navbar({ config }: { config: any }) {
                   <ListItemText primary={link.label} sx={{ textAlign: 'center' }} />
                 </ListItemButton>
               ) : (
-                <ListItemButton component={NextLink} href={link.url} onClick={() => { if (link.url !== pathname) triggerLoading(); setMobileOpen(false); }} sx={{ justifyContent: 'center' }}>
+                <ListItemButton component={NextLink} href={link.url} onClick={() => { setMobileOpen(false); }} sx={{ justifyContent: 'center' }}>
                   <ListItemText primary={link.label} sx={{ textAlign: 'center' }} />
                 </ListItemButton>
               )}
@@ -148,7 +144,7 @@ export default function Navbar({ config }: { config: any }) {
         </List>
         {!isHome && (
           <Box sx={{ p: 2, display: 'flex', justifyContent: 'center' }}>
-            <MuiLink href="/" component={NextLink} color="inherit" underline="none" onClick={() => { if (pathname !== '/') triggerLoading(); setMobileOpen(false); }}
+            <MuiLink href="/" component={NextLink} color="inherit" underline="none" onClick={() => { setMobileOpen(false); }}
               sx={{
                 display: 'inline-flex', alignItems: 'center', gap: 0.5,
                 color: 'text.secondary', textDecoration: 'none',

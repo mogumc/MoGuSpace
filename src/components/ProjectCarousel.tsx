@@ -4,7 +4,6 @@ import Link from 'next/link';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import { useState, useRef, useEffect } from 'react';
-import { useLoadingTrigger } from '@/components/TopLoader';
 
 interface Project {
   slug: string;
@@ -72,7 +71,6 @@ export default function ProjectCarousel({ projects, currentSlug }: ProjectCarous
   const dragStartX = useRef(0);
   const isDragging = useRef(false);
   const containerRef = useRef<HTMLDivElement>(null);
-  const triggerLoading = useLoadingTrigger();
   const theme = useTheme();
   const isDark = theme.palette.mode === 'dark';
 
@@ -168,8 +166,6 @@ export default function ProjectCarousel({ projects, currentSlug }: ProjectCarous
                   onClick={(e) => {
                     if (isDragging.current || Math.abs(dragStartX.current - (e as any).clientX) > 10) {
                       e.preventDefault();
-                    } else {
-                      triggerLoading();
                     }
                   }}
                   sx={{
